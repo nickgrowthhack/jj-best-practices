@@ -98,5 +98,3 @@ Execute novamente `jj bookmark list` e `jj log` para conferir o destino. O símb
 Bookmarks não avançam automaticamente quando novos commits são criados. Porém, se o commit apontado for reescrito, por exemplo, ao editar sua mensagem, o bookmark acompanha a nova versão daquela mesma mudança.
 
 Até aqui, tudo foi feito localmente. O próximo passo é usar esse bookmark para publicar o trabalho.
-
-Referências: [bookmarks](https://docs.jj-vcs.dev/latest/bookmarks/) e [comandos do Jujutsu](https://docs.jj-vcs.dev/latest/cli-reference/).
