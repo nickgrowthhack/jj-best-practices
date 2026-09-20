@@ -73,4 +73,4 @@ Um **bookmark** é um nome que aponta para um commit, como uma branch no Git. Ao
 
 Você pode criar mudanças locais sem nomear cada uma com um bookmark. Também não existe um bookmark ativo que avance automaticamente a cada `jj new`, como uma branch ativa no Git.
 
-Aprender a criar e mover bookmarks é o próximo passo para publicar seu trabalho.
+O próximo passo é publicar seu trabalho usando um bookmark gerado automaticamente.
