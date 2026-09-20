@@ -61,5 +61,3 @@ Agora o ajuste e o bookmark estão em `@-`. `--revision @-` publica os bookmarks
 Repita essa sequência a cada novo ajuste desse trabalho. A ordem importa: avance o bookmark enquanto o ajuste ainda está em `@`, depois execute `jj new` e publique.
 
 Usar `--change` em uma nova mudança geraria outro bookmark. Por isso, neste fluxo, usamos `--change` na primeira publicação e `--revision` depois de avançar o bookmark existente.
-
-Referências: [fluxo com Jujutsu e GitHub](https://docs.jj-vcs.dev/latest/github/) e [comandos de bookmarks e publicação](https://docs.jj-vcs.dev/latest/cli-reference/).
