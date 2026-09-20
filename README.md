@@ -2,7 +2,7 @@
 
 > "Nada é difícil se for dividido em pequenas partes." (Henry Ford)
 
-O objetivo deste projeto é o estudo e a simplificação do (Jujutsu)[https://docs.jj-vcs.dev/latest/]. A partir dele, abstraímos as complexidades do **jj** para chegar a uma base sólida das melhores práticas de desenvolvimento acelerado para 2027. A ideia aqui é ganhar tempo em outros projetos, e não perder aqui.
+O objetivo deste projeto é o estudo e a simplificação do [Jujutsu](https://docs.jj-vcs.dev/latest/). A partir dele, abstraímos as complexidades do **jj** para chegar a uma base sólida das melhores práticas de desenvolvimento acelerado para 2027. A ideia aqui é ganhar tempo em outros projetos, e não perder aqui.
 
 ## Princípios inegociáveis deste projeto
 
