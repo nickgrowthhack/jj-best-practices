@@ -1,12 +1,10 @@
-# Noções básicas do Jujutsu
-
-Leitura de aproximadamente 5 minutos, para quem já conhece Git. O ponto de partida é ter o Jujutsu instalado e um repositório preparado para usar `jj`.
+# Basics
 
 ## 1. O que é o Jujutsu
 
 Jujutsu é um sistema de controle de versão usado pelo comando `jj`. Ele pode trabalhar com repositórios Git e compartilhar commits com pessoas que continuam usando Git, inclusive pelo GitHub.
 
-A principal novidade está na forma de organizar o trabalho local. Você pode construir uma mudança aos poucos, revisar seu conteúdo e decidir quando começar a próxima.
+A principal funcionalidade está na forma de organizar o trabalho local. Você pode construir uma mudança aos poucos, revisar seu conteúdo e decidir quando começar a próxima.
 
 ## 2. O que muda no jeito de trabalhar
 
@@ -42,7 +40,7 @@ Use estes comandos para se orientar:
 
 ## 4. Um ciclo básico
 
-Imagine uma tarefa pequena: corrigir o título do README. Comece com uma mudança atual vazia, edite o arquivo e salve. Depois, revise:
+Imagine uma tarefa pequena: corrigir o título do `README.md`. Comece com uma mudança atual vazia, edite o arquivo e salve. Depois, revise:
 
 ```sh
 jj status
@@ -54,7 +52,7 @@ Confira se a alteração corresponde à tarefa. Se precisar ajustar algo, edite,
 Quando estiver satisfeito, descreva o resultado:
 
 ```sh
-jj describe -m "Corrige o título do README"
+jj describe -m "Corrige o título do README.md"
 ```
 
 `describe` define a mensagem do commit atual. Você pode continuar editando essa mudança depois de descrevê-la.
@@ -65,7 +63,7 @@ Para começar a próxima tarefa, execute:
 jj new
 ```
 
-`new` cria uma mudança vazia sobre a atual e passa a trabalhar nela. A correção do README fica no pai, `@-`. As próximas edições entram no novo `@`.
+`new` cria uma mudança vazia sobre a atual e passa a trabalhar nela. A correção do `README.md` fica no pai, `@-`. As próximas edições entram no novo `@`.
 
 Os arquivos continuam com o título corrigido. “Vazia” significa que a nova mudança ainda não tem diferenças em relação ao pai. Use `jj log` para conferir essa sequência.
 
@@ -75,9 +73,4 @@ Um **bookmark** é um nome que aponta para um commit, como uma branch no Git. Ao
 
 Você pode criar mudanças locais sem nomear cada uma com um bookmark. Também não existe um bookmark ativo que avance automaticamente a cada `jj new`, como uma branch ativa no Git.
 
-Aprender a criar e mover bookmarks é o próximo passo para publicar seu trabalho. Para aprofundar, consulte a documentação oficial:
-
-- [Tutorial do Jujutsu](https://docs.jj-vcs.dev/latest/tutorial/)
-- [Working copy](https://docs.jj-vcs.dev/latest/working-copy/)
-- [Bookmarks](https://docs.jj-vcs.dev/latest/bookmarks/)
-
+Aprender a criar e mover bookmarks é o próximo passo para publicar seu trabalho.
