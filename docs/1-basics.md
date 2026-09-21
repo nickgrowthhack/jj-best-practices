@@ -1,65 +1,71 @@
 # Basics
 
-## 1. O que é o Jujutsu
+Jujutsu é um sistema de controle de versão usado pelo comando `jj`, compatível com repositórios Git.
 
-Jujutsu é um sistema de controle de versão usado pelo comando `jj`. Ele pode trabalhar com repositórios Git e compartilhar commits com pessoas que continuam usando Git, inclusive pelo GitHub.
+Neste estudo, seguimos o [Squash Workflow](https://steveklabnik.github.io/jujutsu-tutorial/real-world-workflows/the-squash-workflow.html), adaptado para **experimentar primeiro, organizar e descrever depois**.
 
-A principal funcionalidade está na forma de organizar o trabalho local. Você pode construir uma mudança aos poucos, revisar seu conteúdo e decidir quando começar a próxima.
+## 1. Experimente
 
-## 2. O que muda no jeito de trabalhar
+Com o Jujutsu inicializado, comece em uma mudança local vazia e editável. Os arquivos em que você trabalha, a **working copy**, já correspondem a um commit. Ao executar comandos, o `jj` registra as edições localmente.
 
-No Jujutsu, os arquivos em que você trabalha, a **working copy**, já correspondem a um commit. Conforme você edita, esse commit é atualizado.
+- `@` é o commit da working copy, onde você experimenta.
+- `@-` é seu pai, o commit imediatamente anterior neste fluxo.
 
-Não há etapa de staging nesse fluxo. Você não precisa executar o equivalente a `git add` para preparar cada alteração. Por padrão, arquivos novos também entram automaticamente, respeitando o `.gitignore`.
-
-O registro é local.
-
-## 3. Como se localizar
-
-Uma **change** é uma mudança que pode evoluir mantendo sua identidade. Ela tem dois identificadores:
-
-- **Change ID**: permanece enquanto você revisa a mesma mudança.
-- **Commit ID**: é o hash conhecido do Git. Muda quando o conteúdo ou a mensagem do commit muda.
-
-Ao consultar o histórico, prefira reconhecer a mudança pelo `change ID`. O hash identifica uma versão específica dela.
-
-Dois símbolos ajudam a localizar seu trabalho:
-
-- `@` representa o commit da working copy, onde você está trabalhando.
-- `@-` representa seu pai, no fluxo simples com um único pai.
-
-Use estes comandos para se orientar:
-
-| Comando | O que mostra |
-| --- | --- |
-| `jj diff` | As diferenças de conteúdo entre o commit atual e seu pai. |
-| `jj log` | Um grafo do histórico, com `@` indicando sua posição. |
-
-## 4. Um ciclo básico
-
-Imagine uma tarefa pequena: corrigir o título do `README.md`. Comece com uma mudança atual vazia, edite o arquivo e salve. Depois, revise:
+Edite e salve os arquivos. Imagine que, mexendo no `README.md`, você acabou corrigindo o título e esclarecendo uma instrução de uso. Agora veja o que fez:
 
 ```sh
 jj diff
-jj describe -m "Corrige o título do README.md"
 ```
 
-`describe` define a mensagem do commit atual. Você pode continuar editando essa mudança depois de descrevê-la.
+O comando mostra as diferenças entre `@` e `@-`. É nesse momento que você reconhece os resultados que vale a pena separar.
 
-Para começar a próxima tarefa, execute:
+## 2. Separe uma descoberta
+
+Crie um destino vazio para o primeiro resultado:
 
 ```sh
-jj new
+jj new --before @ --no-edit
 ```
 
-`new` cria uma mudança vazia sobre a atual e passa a trabalhar nela. A correção do `README.md` fica no pai, `@-`. As próximas edições entram no novo `@`.
+Esse comando insere um commit vazio imediatamente antes de `@`. Ele passa a ser `@-`. Você continua na mesma working copy, com todas as edições disponíveis.
 
-Os arquivos continuam com o título corrigido. “Vazia” significa que a nova mudança ainda não tem diferenças em relação ao pai. Use `jj log` para conferir essa sequência.
+Escolha o que vai para esse destino:
 
-## 5. O próximo passo
+```sh
+jj squash -i
+```
 
-Um **bookmark** é um nome que aponta para um commit, como uma branch no Git. Ao compartilhar trabalho com um repositório Git, bookmarks correspondem às branches.
+Na seleção interativa, expanda o `README.md` para ver seus trechos. Marque apenas a correção do título e confirme. Ela passa para `@-`, enquanto a melhoria da instrução permanece em `@`. O arquivo continua com as duas melhorias.
 
-Você pode criar mudanças locais sem nomear cada uma com um bookmark. Também não existe um bookmark ativo que avance automaticamente a cada `jj new`, como uma branch ativa no Git.
+Agora descreva o resultado separado e confira seu conteúdo:
 
-O próximo passo é publicar seu trabalho usando um bookmark gerado automaticamente.
+```sh
+jj describe @- -m "Corrige o título do README.md"
+jj diff -r @-
+```
+
+`describe` dá uma mensagem ao commit indicado. `diff -r @-` mostra o que esse commit mudou em relação ao próprio pai.
+
+## 3. Repita para a próxima descoberta
+
+Revise o que restou e repita o ciclo, selecionando agora a melhoria da instrução:
+
+```sh
+jj diff
+jj new --before @ --no-edit
+jj squash -i
+jj describe @- -m "Esclarece o uso no README.md"
+jj diff -r @-
+```
+
+Cada repetição cria um novo destino para uma descoberta. Separe resultados coerentes. Se um depender de outro, organize primeiro o que serve de base.
+
+Quando você transfere todas as alterações, o Jujutsu cria uma nova working copy vazia sobre o último resultado. “Vazia” significa sem diferenças em relação ao pai. Os arquivos continuam com todas as melhorias.
+
+Confira a sequência:
+
+```sh
+jj log
+```
+
+O histórico mostra `@` vazio, a melhoria de uso em `@-` e a correção do título logo abaixo. Você já pode continuar experimentando em `@` ou [publicar os resultados](2-bookmarks.md).
